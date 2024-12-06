@@ -1,5 +1,6 @@
 import os
 from cnnClassifier import logger
+from cnnClassifier.utils.tools import save_as_tfrecord
 import tensorflow_datasets as tfds
 import tensorflow as tf
 from cnnClassifier.entity.config_entity import (DataIngestionConfig)
@@ -33,7 +34,7 @@ class DataIngestion:
             
             # Save the dataset to the artifacts directory in TFRecord format
             logger.info(f"Saving dataset to {save_path} as TFRecord...")
-            self._save_as_tfrecord(dataset=dataset[0], save_path=save_path)
+            save_as_tfrecord(dataset=dataset[0], save_path=save_path)
 
             # Log dataset info
             logger.info(f"Dataset Info: {dataset_info}")
@@ -42,18 +43,3 @@ class DataIngestion:
         except Exception as e:
             logger.error(f"Error during data ingestion: {e}")
             raise e
-
-    @staticmethod
-    def _save_as_tfrecord(self, dataset, save_path):
-        """
-        Saves the given dataset to a TFRecord file.
-        """
-        with tf.io.TFRecordWriter(save_path) as writer:
-            for image, label in dataset:
-                # Serialize image and label into a TFRecord format
-                feature = {
-                    'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[tf.io.encode_jpeg(image).numpy()])),
-                    'label': tf.train.Feature(int64_list=tf.train.Int64List(value=[label.numpy()])),
-                }
-                example = tf.train.Example(features=tf.train.Features(feature=feature))
-                writer.write(example.SerializeToString())
