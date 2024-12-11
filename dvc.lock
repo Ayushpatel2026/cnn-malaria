@@ -1,0 +1,54 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: f18110f61143ff12cc6bc0fe0574aab7
+      size: 681
+    - path: src/cnnClassifier/components/data_ingestion.py
+      hash: md5
+      md5: c43b065e262ac29d2edf41617af86017
+      size: 1589
+    - path: src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 4edbdd828fecf0eee222c62cab463b0a
+      size: 874
+    outs:
+    - path: artifacts/data_ingestion/malaria_dataset.tfrecord
+      hash: md5
+      md5: 26d05f158755404736b51a9299d49d78
+      size: 171206179
+  data_preparation:
+    cmd: python src/cnnClassifier/pipeline/stage_02_data_preparation.py
+    deps:
+    - path: artifacts/data_ingestion/malaria_dataset.tfrecord
+      hash: md5
+      md5: 26d05f158755404736b51a9299d49d78
+      size: 171206179
+    - path: config/config.yaml
+      hash: md5
+      md5: f18110f61143ff12cc6bc0fe0574aab7
+      size: 681
+    - path: src/cnnClassifier/components/data_preparation.py
+      hash: md5
+      md5: 97fe5b4845100eed745be5028068a52b
+      size: 3624
+    - path: src/cnnClassifier/pipeline/stage_02_data_preparation.py
+      hash: md5
+      md5: 08fd304a18c8e8f9fd13c854f9b3e46a
+      size: 2020
+    outs:
+    - path: artifacts/data_preparation/test.tfrecord
+      hash: md5
+      md5: 62b670a2e937b35b5156d666930cd573
+      size: 56611558
+    - path: artifacts/data_preparation/train.tfrecord
+      hash: md5
+      md5: f2edd85f06b00855adc37ebf8005b37d
+      size: 163722539
+    - path: artifacts/data_preparation/val.tfrecord
+      hash: md5
+      md5: 13a0e87f52fe27896c6150cfde8b4b0a
+      size: 56596219
