@@ -15,6 +15,7 @@ data_preparation:
   test_data_path: artifacts/data_preparation/test.tfrecord
   val_data_path: artifacts/data_preparation/val.tfrecord
   TRAIN_SPLIT: 0.6
+  DATASET_SIZE: 27558
 
 training:
   root_dir: artifacts/training

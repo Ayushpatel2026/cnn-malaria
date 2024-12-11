@@ -14,22 +14,22 @@ class DataPreparationPipeline:
         data_preparation_config = config.get_data_preparation_config()
         data_preparation = DataPreparation(data_preparation_config)
         dataset = data_preparation.load_dataset_tfds()
-        train_dataset, val_dataset, test_dataset = data_preparation.split_dataset(dataset[0], 
+        train_dataset, val_dataset, test_dataset = data_preparation.split_dataset(dataset, 
                                                                                   data_preparation_config.TRAIN_SPLIT, 
                                                                                   (1 - data_preparation_config.TRAIN_SPLIT)/2)
-        train_dataset = data_preparation.resize_rescale_dataset(train_dataset)
+        train_dataset = data_preparation.resize_dataset(train_dataset)
         train_dataset = data_preparation.shuffle_dataset(train_dataset)
         train_dataset = data_preparation.augment_dataset(train_dataset)
         train_dataset = data_preparation.batch_dataset(train_dataset)
         train_dataset = data_preparation.prefetch_dataset(train_dataset)
 
 
-        val_dataset = data_preparation.resize_rescale_dataset(val_dataset)
+        val_dataset = data_preparation.resize_dataset(val_dataset)
         val_dataset = data_preparation.shuffle_dataset(val_dataset)
         val_dataset = data_preparation.batch_dataset(val_dataset)
         val_dataset = data_preparation.prefetch_dataset(val_dataset)
 
-        test_dataset = data_preparation.resize_rescale_dataset(test_dataset)
+        test_dataset = data_preparation.resize_dataset(test_dataset)
 
         data_preparation.store_split_datasets(train_dataset, val_dataset, test_dataset)
 

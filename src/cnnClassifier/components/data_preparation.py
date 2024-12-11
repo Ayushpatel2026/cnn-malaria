@@ -4,7 +4,7 @@ import tensorflow_datasets as tfds
 import tensorflow as tf
 from cnnClassifier.entity.config_entity import (DataPreparationConfig)
 from tensorflow.keras.layers import RandomFlip, RandomRotation
-from cnnClassifier.utils.tools import save_as_tfrecord, parse_tfrecord_fn
+from cnnClassifier.utils.tools import parse_tfrecord_fn, save_as_tfrecord_batch, save_as_tfrecord
 
 
 class DataPreparation:
@@ -33,43 +33,46 @@ class DataPreparation:
             raise e
 
     def split_dataset(self, dataset, train_ratio, val_test_ratio):
-        DATASET_SIZE = len(dataset)
+
+        logger.info("Dataset size: ", self.config.DATASET_SIZE)
 
         # take from 0 to train_ratio*dataset_size
-        train_dataset = dataset.take(int(train_ratio*DATASET_SIZE))
+        train_dataset = dataset.take(int(train_ratio*self.config.DATASET_SIZE))
 
-        val_test_dataset = dataset.skip(int(train_ratio*DATASET_SIZE))
+        val_test_dataset = dataset.skip(int(train_ratio*self.config.DATASET_SIZE))
 
         # after removing train, take val_ratio*dataset_size
-        val_dataset = val_test_dataset.take(int(val_test_ratio*DATASET_SIZE))
+        val_dataset = val_test_dataset.take(int(val_test_ratio*self.config.DATASET_SIZE))
 
-        test_dataset = val_test_dataset.skip(int(val_test_ratio*DATASET_SIZE))
+        test_dataset = val_test_dataset.skip(int(val_test_ratio*self.config.DATASET_SIZE))
+
+        logger.info("Dataset split successfully.")
 
         return train_dataset, val_dataset, test_dataset
 
     def _augment_layer(self, image, labels):
         augment_layers = tf.keras.Sequential([
             RandomRotation(factor=(0.25, 0.26),),
-            RandomFlip(mode='HORIZONTAL')
+            RandomFlip(mode="horizontal")
         ])
         return augment_layers(image, training=True), labels
     
     def augment_dataset(self, dataset):
         return dataset.map(self._augment_layer)
         
-    def _resize_rescale(self, image, label):
+    def _resize(self, image, label):
         # note that the datatype will be changed to float32 here
-        image = tf.image.resize(image, (self.config.IM_SIZE, self.config.IM_SIZE))/255.0
+        image = tf.image.resize(image, (self.config.IM_SIZE, self.config.IM_SIZE))
         return image, label
     
-    def resize_rescale_dataset(self, dataset):
-        return dataset.map(self.resize_rescale)
+    def resize_dataset(self, dataset):
+        return dataset.map(self._resize)
     
     def batch_dataset(self, data_set):
         return data_set.batch(self.config.BATCH_SIZE)
     
     def shuffle_dataset(self, data_set):
-        return data_set.shuffle(self.config.BUFFER_SIZE)
+        return data_set.shuffle(self.config.SHUFFLE_BUFFER_SIZE)
 
     def prefetch_dataset(self, data_set):
         return data_set.prefetch(tf.data.AUTOTUNE)
@@ -81,9 +84,9 @@ class DataPreparation:
             logger.info("Starting to store the split datasets...")
 
             # Save the datasets to the artifacts directory in TFRecord format
-            save_as_tfrecord(dataset=train_dataset, save_path=self.config.train_data_path)
-            save_as_tfrecord(dataset=val_dataset, save_path=self.config.val_data_path)
-            save_as_tfrecord(dataset=test_dataset, save_path=self.config.test_data_path)
+            save_as_tfrecord_batch(dataset=train_dataset, save_path=self.config.train_data_path)
+            save_as_tfrecord_batch(dataset=val_dataset, save_path=self.config.val_data_path)
+            save_as_tfrecord(dataset=test_dataset, save_path=self.config.test_data_path, dtype=tf.float32)
 
             logger.info("Datasets saved successfully.")
 

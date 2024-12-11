@@ -45,6 +45,7 @@ class ConfigurationManager:
             val_data_path= config.val_data_path,
             test_data_path= config.test_data_path,
             TRAIN_SPLIT= config.TRAIN_SPLIT,
+            DATASET_SIZE= config.DATASET_SIZE,
         )
         return date_preparation_config
     

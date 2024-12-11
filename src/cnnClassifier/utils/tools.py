@@ -129,19 +129,41 @@ def get_size(path: Path) -> str:
     size_in_kb = round(os.path.getsize(path)/1024)
     return f"~ {size_in_kb} KB"
 
-def save_as_tfrecord(dataset, save_path):
+def save_as_tfrecord(dataset, save_path, dtype=tf.uint8):
         """
         Saves the given dataset to a TFRecord file.
         """
         with tf.io.TFRecordWriter(save_path) as writer:
             for image, label in dataset:
                 # Serialize image and label into a TFRecord format
+                if dtype == tf.float32:
+                    image = tf.cast(image * 255.0, tf.uint8)
+
                 feature = {
                     'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[tf.io.encode_jpeg(image).numpy()])),
                     'label': tf.train.Feature(int64_list=tf.train.Int64List(value=[label.numpy()])),
                 }
                 example = tf.train.Example(features=tf.train.Features(feature=feature))
                 writer.write(example.SerializeToString())
+
+def save_as_tfrecord_batch(dataset, save_path, dtype=tf.float32):
+        """
+        Saves the given dataset to a TFRecord file.
+        """
+        with tf.io.TFRecordWriter(save_path) as writer:
+            for batch in dataset:
+                images, labels = batch
+                for image, label in zip(images, labels):
+                    # Serialize image and label into a TFRecord format
+                    if dtype == tf.float32:
+                        image = tf.cast(image * 255.0, tf.uint8)
+
+                    feature = {
+                        'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[tf.io.encode_jpeg(image).numpy()])),
+                        'label': tf.train.Feature(int64_list=tf.train.Int64List(value=[label.numpy()])),
+                    }
+                    example = tf.train.Example(features=tf.train.Features(feature=feature))
+                    writer.write(example.SerializeToString())
 
 def parse_tfrecord_fn(serialized_data):
     """
@@ -154,6 +176,7 @@ def parse_tfrecord_fn(serialized_data):
     example = tf.io.parse_single_example(serialized_data, feature_description)
     image = tf.io.decode_jpeg(example['image'], channels=3)
     label = example['label']
+    image = tf.image.convert_image_dtype(image, tf.float32)
     return image, label
 
 def decodeImage(imgstring, fileName):

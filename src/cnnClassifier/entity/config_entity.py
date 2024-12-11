@@ -19,3 +19,4 @@ class DataPreparationConfig:
     test_data_path: Path
     val_data_path: Path
     TRAIN_SPLIT: float
+    DATASET_SIZE: int
