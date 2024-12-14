@@ -19,7 +19,10 @@ class DataPreparationPipeline:
                                                                                   (1 - data_preparation_config.TRAIN_SPLIT)/2)
         train_dataset = data_preparation.resize_dataset(train_dataset)
         train_dataset = data_preparation.shuffle_dataset(train_dataset)
-        train_dataset = data_preparation.augment_dataset(train_dataset)
+        
+        if data_preparation_config.AUGMENT_DATA:
+            train_dataset = data_preparation.augment_dataset(train_dataset)
+
         train_dataset = data_preparation.batch_dataset(train_dataset)
         train_dataset = data_preparation.prefetch_dataset(train_dataset)
 

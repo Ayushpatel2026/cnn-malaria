@@ -6,17 +6,13 @@ data_ingestion:
 
 data_preparation:
   AUGMENT_DATA: False
-  IM_SIZE: 224
-  BATCH_SIZE: 32
-  SHUFFLE_BUFFER_SIZE: 8
   data_source: artifacts/data_ingestion/malaria_dataset.tfrecord
   root_dir: artifacts/data_preparation
   train_data_path: artifacts/data_preparation/train.tfrecord
   test_data_path: artifacts/data_preparation/test.tfrecord
   val_data_path: artifacts/data_preparation/val.tfrecord
   TRAIN_SPLIT: 0.6
-  DATASET_SIZE: 27558
 
-training:
-  root_dir: artifacts/training
-  trained_model_path: artifacts/training/model.h5
+prepare_base_model:
+  root_dir: artifacts/models
+  base_model_path: artifacts/models/base_model.h5

@@ -20,3 +20,16 @@ class DataPreparationConfig:
     val_data_path: Path
     TRAIN_SPLIT: float
     DATASET_SIZE: int
+
+@dataclass(frozen=True)
+class PrepareBaseModelConfig:
+    root_dir: Path
+    base_model_path: Path 
+    KERNEL_SIZE: int
+    STRIDE_LENGTH: int
+    FILTERS: int
+    POOL_SIZE: int
+    DENSE_LAYER_ONE_SIZE: int
+    DENSE_LAYER_TWO_SIZE: int
+    OUTPUT_CLASSES: int
+    INPUT_SIZE: int

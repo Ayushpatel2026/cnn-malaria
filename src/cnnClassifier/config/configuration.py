@@ -1,7 +1,7 @@
 from cnnClassifier.constants import *
 import os
 from cnnClassifier.utils.tools import read_yaml, create_directories,save_json
-from cnnClassifier.entity.config_entity import DataIngestionConfig, DataPreparationConfig
+from cnnClassifier.entity.config_entity import DataIngestionConfig, DataPreparationConfig, PrepareBaseModelConfig
                                     
 
 
@@ -38,14 +38,31 @@ class ConfigurationManager:
             AUGMENT_DATA= config.AUGMENT_DATA,
             root_dir = config.root_dir,
             data_source = config.data_source,
-            IM_SIZE= config.IM_SIZE,
-            BATCH_SIZE= config.BATCH_SIZE,
-            SHUFFLE_BUFFER_SIZE= config.SHUFFLE_BUFFER_SIZE,
+            IM_SIZE= self.params.IMAGE_SIZE,
+            BATCH_SIZE= self.params.BATCH_SIZE,
+            SHUFFLE_BUFFER_SIZE= self.params.SHUFFLE_BUFFER_SIZE,
             train_data_path= config.train_data_path,
             val_data_path= config.val_data_path,
             test_data_path= config.test_data_path,
             TRAIN_SPLIT= config.TRAIN_SPLIT,
-            DATASET_SIZE= config.DATASET_SIZE,
+            DATASET_SIZE= self.params.DATASET_SIZE,
         )
         return date_preparation_config
+    
+    def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
+        config = self.config.prepare_base_model
+        create_directories([config.root_dir])
+        prepare_base_model_config = PrepareBaseModelConfig(
+            root_dir = config.root_dir,
+            base_model_path= config.base_model_path,
+            KERNEL_SIZE= self.params.KERNEL_SIZE,
+            STRIDE_LENGTH= self.params.STRIDE_LENGTH,
+            FILTERS= self.params.FILTERS,
+            POOL_SIZE= self.params.POOL_SIZE,
+            DENSE_LAYER_ONE_SIZE= self.params.DENSE_LAYER_ONE_SIZE,
+            DENSE_LAYER_TWO_SIZE= self.params.DENSE_LAYER_TWO_SIZE,
+            OUTPUT_CLASSES= self.params.OUTPUT_CLASSES,
+            INPUT_SIZE= self.params.IMAGE_SIZE
+        )
+        return prepare_base_model_config
     

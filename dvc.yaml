@@ -15,7 +15,18 @@ stages:
       - src/cnnClassifier/components/data_preparation.py
       - artifacts/data_ingestion/malaria_dataset.tfrecord
       - config/config.yaml
+      - params.yaml
     outs:
       - artifacts/data_preparation/train.tfrecord
       - artifacts/data_preparation/test.tfrecord
       - artifacts/data_preparation/val.tfrecord
+
+  prepare_base_model:
+    cmd: python src/cnnClassifier/pipeline/stage_03_prepare_base_model.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_03_prepare_base_model.py
+      - src/cnnClassifier/components/prepare_base_model.py
+      - config/config.yaml
+      - params.yaml
+    outs:
+      - artifacts/models/base_model.h5

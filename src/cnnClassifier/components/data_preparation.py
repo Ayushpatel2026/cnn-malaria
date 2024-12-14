@@ -1,6 +1,5 @@
 import os
 from cnnClassifier import logger
-import tensorflow_datasets as tfds
 import tensorflow as tf
 from cnnClassifier.entity.config_entity import (DataPreparationConfig)
 from tensorflow.keras.layers import RandomFlip, RandomRotation
@@ -34,7 +33,7 @@ class DataPreparation:
 
     def split_dataset(self, dataset, train_ratio, val_test_ratio):
 
-        logger.info("Dataset size: ", self.config.DATASET_SIZE)
+        logger.info("Dataset size: {}".format(self.config.DATASET_SIZE))
 
         # take from 0 to train_ratio*dataset_size
         train_dataset = dataset.take(int(train_ratio*self.config.DATASET_SIZE))
