@@ -20,3 +20,8 @@ prepare_base_model:
 training:
   root_dir: artifacts/models
   trained_model_path: artifacts/models/malaria_model.h5
+
+model_evaluation:
+  test_data_path: artifacts/data_preparation/test.tfrecord
+  trained_model_path: models/lenet_model.h5
+  save_eval_path: model_evaluation/malaria_model_evaluation.json

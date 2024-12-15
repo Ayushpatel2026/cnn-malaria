@@ -33,7 +33,7 @@ stages:
       size: 706
     - path: params.yaml
       hash: md5
-      md5: 254c6158de4ac39b8aaace207e1985eb
+      md5: fa81fa793cb373ec54a2eb3179a30863
       size: 337
     - path: src/cnnClassifier/components/data_preparation.py
       hash: md5
@@ -46,15 +46,15 @@ stages:
     outs:
     - path: artifacts/data_preparation/test.tfrecord
       hash: md5
-      md5: ef5014036f9a8abafe5328c940fa4939
+      md5: 3c0b7031aaeb804c8eb14348a9ac3b4b
       size: 56611482
     - path: artifacts/data_preparation/train.tfrecord
       hash: md5
-      md5: a17ae6f3c709398ddfe6563527e17ffb
+      md5: efe2c4e42f06ebc973de45080453bac6
       size: 169935730
     - path: artifacts/data_preparation/val.tfrecord
       hash: md5
-      md5: e6701bb3bdac9b0acc3b0fa3cf6d1c20
+      md5: 222cfdc80b883dd3a1b9e0463555347a
       size: 56594421
   prepare_base_model:
     cmd: python src/cnnClassifier/pipeline/stage_03_prepare_base_model.py
@@ -65,7 +65,7 @@ stages:
       size: 706
     - path: params.yaml
       hash: md5
-      md5: 254c6158de4ac39b8aaace207e1985eb
+      md5: fa81fa793cb373ec54a2eb3179a30863
       size: 337
     - path: src/cnnClassifier/components/prepare_base_model.py
       hash: md5
@@ -78,26 +78,26 @@ stages:
     outs:
     - path: artifacts/models/base_model.h5
       hash: md5
-      md5: 01f94f0c61d395fbb2564f639a36165d
+      md5: 82fce26eeb40871846011e0587530cbb
       size: 18724016
   training:
     cmd: python src/cnnClassifier/pipeline/stage_04_training.py
     deps:
     - path: artifacts/data_preparation/test.tfrecord
       hash: md5
-      md5: ef5014036f9a8abafe5328c940fa4939
+      md5: 3c0b7031aaeb804c8eb14348a9ac3b4b
       size: 56611482
     - path: artifacts/data_preparation/train.tfrecord
       hash: md5
-      md5: a17ae6f3c709398ddfe6563527e17ffb
+      md5: efe2c4e42f06ebc973de45080453bac6
       size: 169935730
     - path: artifacts/data_preparation/val.tfrecord
       hash: md5
-      md5: e6701bb3bdac9b0acc3b0fa3cf6d1c20
+      md5: 222cfdc80b883dd3a1b9e0463555347a
       size: 56594421
     - path: artifacts/models/base_model.h5
       hash: md5
-      md5: 01f94f0c61d395fbb2564f639a36165d
+      md5: 82fce26eeb40871846011e0587530cbb
       size: 18724016
     - path: src/cnnClassifier/components/training.py
       hash: md5
@@ -105,10 +105,10 @@ stages:
       size: 4565
     - path: src/cnnClassifier/pipeline/stage_04_training.py
       hash: md5
-      md5: 685988fd287d4cf8da34743f30516f0e
-      size: 1117
+      md5: fd918118135a7a418d8d657c752a1302
+      size: 1107
     outs:
     - path: artifacts/models/malaria_model.h5
       hash: md5
-      md5: 0350f5792ed99ad14a96958a43372c99
+      md5: a27910dc588dab167e7b9cf50be56293
       size: 56119912

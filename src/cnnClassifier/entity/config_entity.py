@@ -47,3 +47,9 @@ class TrainingConfig:
     LEARNING_RATE_PATIENCE: int
     EARLY_STOPPING_PATIENCE: int
     LEARNING_RATE_FACTOR: float
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    trained_model_path: Path
+    test_data_path: Path
+    save_eval_path: Path

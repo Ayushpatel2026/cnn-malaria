@@ -1,7 +1,7 @@
 from cnnClassifier.constants import *
 import os
 from cnnClassifier.utils.tools import read_yaml, create_directories
-from cnnClassifier.entity.config_entity import DataIngestionConfig, DataPreparationConfig, PrepareBaseModelConfig, TrainingConfig
+from cnnClassifier.entity.config_entity import DataIngestionConfig, DataPreparationConfig, PrepareBaseModelConfig, TrainingConfig, ModelEvaluationConfig
                                     
 
 
@@ -82,3 +82,12 @@ class ConfigurationManager:
             LEARNING_RATE_FACTOR = self.params.LEARNING_RATE_FACTOR
         )
         return training_config
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+        model_evaluation_config = ModelEvaluationConfig(
+            trained_model_path = config.trained_model_path,
+            test_data_path = config.test_data_path,
+            save_eval_path = config.save_eval_path
+        )
+        return model_evaluation_config
