@@ -88,6 +88,8 @@ class ConfigurationManager:
         model_evaluation_config = ModelEvaluationConfig(
             trained_model_path = config.trained_model_path,
             test_data_path = config.test_data_path,
-            save_eval_path = config.save_eval_path
+            save_eval_path = config.save_eval_path,
+            all_params = self.params,
+            AUGMENT_DATA = self.config.data_preparation.AUGMENT_DATA,
         )
         return model_evaluation_config

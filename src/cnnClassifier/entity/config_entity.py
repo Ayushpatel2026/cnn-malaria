@@ -53,3 +53,5 @@ class ModelEvaluationConfig:
     trained_model_path: Path
     test_data_path: Path
     save_eval_path: Path
+    all_params: dict
+    AUGMENT_DATA: bool

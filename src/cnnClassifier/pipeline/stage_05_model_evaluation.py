@@ -12,7 +12,7 @@ class ModelEvaluationPipeline:
         config = ConfigurationManager()
         model_evaluation_config = config.get_model_evaluation_config()
         eval_model = ModelEvaluation(model_evaluation_config)
-        
+        eval_model.evaluate_model()
 
 
 if __name__ == '__main__':

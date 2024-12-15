@@ -58,17 +58,35 @@ def create_directories(path_to_directories: list, verbose=True):
 
 
 @ensure_annotations
-def save_json(path: Path, data: dict):
+def save_json(path, evaluation_details):
     """save json data
 
     Args:
-        path (Path): path to json file
-        data (dict): data to be saved in json file
+        path : path to json file
+        evaluation_details : data to be saved in json file
     """
-    with open(path, "w") as f:
-        json.dump(data, f, indent=4)
+    # Create the file if it doesn't exist
+    if not os.path.exists(path):
+        logger.info("Creating a new JSON file.")
+        with open(path, 'w') as json_file:
+            json.dump([], json_file)  # Initialize with an empty list
 
-    logger.info(f"json file saved at: {path}")
+    # Append the new evaluation details to the JSON file
+    with open(path, 'r+') as json_file:
+        try:
+            # Load existing data
+            data = json.load(json_file)
+        except json.JSONDecodeError:
+            data = []
+
+        # Append new evaluation details
+        data.append(evaluation_details)
+
+        # Write back to the file
+        json_file.seek(0)  # Move to the beginning of the file
+        json.dump(data, json_file, indent=4)
+    
+    logger.info(f"Evaluation details saved successfully to {path}.")
 
 
 

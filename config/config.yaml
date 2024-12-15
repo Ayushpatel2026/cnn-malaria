@@ -23,5 +23,5 @@ training:
 
 model_evaluation:
   test_data_path: artifacts/data_preparation/test.tfrecord
-  trained_model_path: models/lenet_model.h5
+  trained_model_path: model/malaria_model.h5
   save_eval_path: model_evaluation/malaria_model_evaluation.json

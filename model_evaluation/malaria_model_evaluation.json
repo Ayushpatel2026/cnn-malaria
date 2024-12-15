@@ -1,0 +1,24 @@
+[
+    {
+        "date": "2024-12-15 15:26:01",
+        "model_parameters": {
+            "batch_size": 32,
+            "learning_rate": 0.01,
+            "epochs": 4,
+            "dense_layer_one_size": 100,
+            "dense_layer_two_size": 10,
+            "filters": 16,
+            "kernel_size": 3,
+            "stride_length": 1,
+            "pool_size": 2,
+            "optimizer": "Adam",
+            "loss_function": "BinaryCrossentropy",
+            "activation": "relu",
+            "data_augmentation": false
+        },
+        "evaluation_metrics": {
+            "test_loss": 0.18021926283836365,
+            "test_accuracy": 0.9461273550987244
+        }
+    }
+]

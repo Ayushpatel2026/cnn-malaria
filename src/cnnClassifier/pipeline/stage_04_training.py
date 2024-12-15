@@ -20,15 +20,15 @@ class TrainingPipeline:
         train_model.save_train_model()
         logger.info("Trained model saved successfully.")
 
-        train_model.copy_model(training_config.trained_model_path, 'model/lenet_model.h5')
+        train_model.copy_model(training_config.trained_model_path, 'model/malaria_model.h5')
 
 
-if __name__ == '__main__':
-    try:
-        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        obj = TrainingPipeline()
-        obj.main()
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-    except Exception as e:
-        logger.exception(e)
-        raise e
+# if __name__ == '__main__':
+#     try:
+#         logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+#         #obj = TrainingPipeline()
+#         #obj.main()
+#         logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+#     except Exception as e:
+#         logger.exception(e)
+#         raise e
