@@ -33,3 +33,14 @@ class PrepareBaseModelConfig:
     DENSE_LAYER_TWO_SIZE: int
     OUTPUT_CLASSES: int
     INPUT_SIZE: int
+
+@dataclass(frozen=True)
+class TrainingConfig:
+    root_dir: Path
+    trained_model_path: Path
+    EPOCHS: int
+    INITIAL_LEARNING_RATE: float
+    BATCH_SIZE: int
+    train_data_path: Path
+    val_data_path: Path
+    base_model_path: Path

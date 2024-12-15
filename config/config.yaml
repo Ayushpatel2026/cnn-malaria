@@ -16,3 +16,7 @@ data_preparation:
 prepare_base_model:
   root_dir: artifacts/models
   base_model_path: artifacts/models/base_model.h5
+
+training:
+  root_dir: artifacts/models
+  trained_model_path: artifacts/models/malaria_model.h5
