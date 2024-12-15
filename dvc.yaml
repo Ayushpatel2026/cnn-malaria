@@ -42,5 +42,14 @@ stages:
       - artifacts/models/base_model.h5
       #- config/config.yaml
       #- params.yaml
-    outs:
+    #outs:
+      #- artifacts/models/malaria_model.h5
+
+  model_evaluation:
+    cmd: python src/cnnClassifier/pipeline/stage_05_model_evaluation.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_05_model_evaluation.py
+      - src/cnnClassifier/components/model_evaluation.py
+      - artifacts/data_preparation/test.tfrecord
       - artifacts/models/malaria_model.h5
+      - config/config.yaml
