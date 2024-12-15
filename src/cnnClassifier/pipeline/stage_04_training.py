@@ -13,6 +13,15 @@ class TrainingPipeline:
         config = ConfigurationManager()
         training_config = config.get_training_config()
         train_model = TrainingModel(training_config)
+        train_model.train_model()
+
+        # move the trained model from artifacts to the models directory
+        logger.info("Saving trained model...")
+        train_model.save_train_model()
+        logger.info("Trained model saved successfully.")
+
+        train_model.copy_model(training_config.trained_model_path, 'model/lenet_model.h5')
+
 
 if __name__ == '__main__':
     try:

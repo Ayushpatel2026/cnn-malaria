@@ -30,3 +30,17 @@ stages:
       - params.yaml
     outs:
       - artifacts/models/base_model.h5
+
+  training:
+    cmd: python src/cnnClassifier/pipeline/stage_04_training.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_04_training.py
+      - src/cnnClassifier/components/training.py
+      - artifacts/data_preparation/train.tfrecord
+      - artifacts/data_preparation/test.tfrecord
+      - artifacts/data_preparation/val.tfrecord
+      - artifacts/models/base_model.h5
+      #- config/config.yaml
+      #- params.yaml
+    outs:
+      - artifacts/models/malaria_model.h5

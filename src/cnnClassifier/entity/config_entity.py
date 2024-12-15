@@ -44,3 +44,6 @@ class TrainingConfig:
     train_data_path: Path
     val_data_path: Path
     base_model_path: Path
+    LEARNING_RATE_PATIENCE: int
+    EARLY_STOPPING_PATIENCE: int
+    LEARNING_RATE_FACTOR: float
