@@ -76,6 +76,9 @@ class ConfigurationManager:
             BATCH_SIZE = self.params.BATCH_SIZE,
             train_data_path = self.config.data_preparation.train_data_path,
             val_data_path = self.config.data_preparation.val_data_path,
-            base_model_path = self.config.prepare_base_model.base_model_path
+            base_model_path = self.config.prepare_base_model.base_model_path,
+            EARLY_STOPPING_PATIENCE = self.params.EARLY_STOPPING_PATIENCE,
+            LEARNING_RATE_PATIENCE = self.params.LEARNING_RATE_PATIENCE,
+            LEARNING_RATE_FACTOR = self.params.LEARNING_RATE_FACTOR
         )
         return training_config
