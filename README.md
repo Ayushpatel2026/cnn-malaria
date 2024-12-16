@@ -1,6 +1,6 @@
 # **Malaria Diagnosis with Convolutional Neural Networks**
 
-This project leverages Convolutional Neural Networks (CNNs) to classify blood cell images as either infected or uninfected with malaria. Achieving an accuracy of **94%**, this solution demonstrates the use of modern machine learning techniques and MLOps principles to build a robust, modular, and collaborative pipeline.
+This project leverages Convolutional Neural Networks (CNNs) to classify blood cell images as either infected (parasitized) or uninfected with malaria. Achieving an accuracy of **94%**, this solution demonstrates the use of modern machine learning techniques and MLOps principles to build a robust, modular, and collaborative pipeline.
 
 ## **Key Features**
 - **High Accuracy**: Achieved 94% classification accuracy on the dataset.
@@ -11,12 +11,13 @@ This project leverages Convolutional Neural Networks (CNNs) to classify blood ce
   - **Model Evaluation**: Evaluating model performance using test data.
 - **MLOps Principles**: Designed for **reproducibility** and **collaboration**:
   - Modular and reusable code.
-  - Streamlined pipelines for clear separation of tasks.
+  - Streamlined pipelines for clear separation of tasks and used DVC to keep track of the pipelines 
   - Scalable and extensible for future improvements.
 - **Technologies Used**:
   - **TensorFlow** and **Keras**: Model development and training.
   - **Matplotlib**: Data visualization and analysis.
-  - **Custom Callbacks**: For monitoring learning rate scheduling and model performance.
+  - **Flask**: To make a user friendly web application
+  - **DVC**: To keep track of the pipelines and models for reproducibility and traceability
   - **Jupyter Notebook**: For initial prototyping and testing.
 
 ## **Project Workflow**
@@ -36,6 +37,17 @@ This project leverages Convolutional Neural Networks (CNNs) to classify blood ce
 - **Data Augmentation**: Increases dataset diversity with techniques like flipping and rotation.
 - **Learning Rate Scheduling**: Dynamically adjusts the learning rate during training to optimize convergence.
 - **Custom Callbacks**: Monitors performance metrics and enables early stopping to prevent overfitting.
+
+# Flask App
+
+A wep application was made using Flask to provide a user friendly way to upload cell images and get a prediction from the model. 
+Below are two images from the wep application: with a cell that is uninfected and one with a parasitized cell. 
+
+## **Example: Uninfected Cell**
+![Uninfected Cell](images/web_app_uninfected.png)
+
+## **Example: Parasitized Cell**
+![Parasitized Cell](images/web_app_parasitized.png)
 
 # How to run?
 ### STEPS:
